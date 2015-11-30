@@ -1,0 +1,6 @@
+c:\users\islam_mamayeu@epam.com\documents\visual studio 2015\Projects\TaxPark\TaxPark\bin\Debug\TaxPark.exe.config
+C:\Users\Islam_Mamayeu@epam.com\Documents\Visual Studio 2015\Projects\TaxPark\TaxPark\obj\Debug\TaxPark.csprojResolveAssemblyReference.cache
+C:\Users\Islam_Mamayeu@epam.com\Documents\Visual Studio 2015\Projects\TaxPark\TaxPark\bin\Debug\TaxPark.exe
+C:\Users\Islam_Mamayeu@epam.com\Documents\Visual Studio 2015\Projects\TaxPark\TaxPark\bin\Debug\TaxPark.pdb
+C:\Users\Islam_Mamayeu@epam.com\Documents\Visual Studio 2015\Projects\TaxPark\TaxPark\obj\Debug\TaxPark.exe
+C:\Users\Islam_Mamayeu@epam.com\Documents\Visual Studio 2015\Projects\TaxPark\TaxPark\obj\Debug\TaxPark.pdb
