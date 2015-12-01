@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,91 @@ namespace TaxPark
 
 
 
+        public static List<TaxAvto> ReadWriteFile(List<TaxAvto> taxi)
+        {
+            TaxAvto objTaxAvto = new TaxAvto() ;
+            List<TaxAvto> ListFromFile = new List<TaxAvto>();
+            Console.WriteLine("Enter name of file :");
+            String nameofFile = Console.ReadLine()+".txt";
+            int i = 0;
+            if (nameofFile == ".txt")
+            {
+                Console.WriteLine("Enter correct name of File!");
+
+            }
+            else
+            {
+                FileInfo file = new FileInfo("C:\\Users\\Islam_Mamayeu@epam.com\\Documents\\Visual Studio 2015\\Projects\\" + nameofFile);
+
+                if (file.Exists == false)
+                {
+                    file.Create();
+                }
+                else
+                {
+                    Console.WriteLine("File is created");
+                }
+
+                Console.WriteLine("Model: ");
+                objTaxAvto.model = Console.ReadLine();
+
+                Console.WriteLine("Type: ");
+                objTaxAvto.type = Console.ReadLine();
+
+                Console.WriteLine("FuelType: ");
+                objTaxAvto.fueltype = Console.ReadLine();
+
+                Console.WriteLine("FuelConsumption: ");
+                objTaxAvto.fuelConsumption = Double.Parse(Console.ReadLine());
+
+                Console.WriteLine("Price: ");
+                objTaxAvto.price = Int32.Parse(Console.ReadLine());
+
+                Console.WriteLine("SeatCount: ");
+                objTaxAvto.seatCount = Int32.Parse(Console.ReadLine());
+                taxi.Add(objTaxAvto);
+                StreamWriter sw;
+
+                for (i = 0; i < taxi.Count; i++)
+                {
+
+
+                    sw = file.AppendText();
+                    sw.Write(taxi[i].model + " ");
+                    sw.Write(taxi[i].type + " ");
+                    sw.Write(taxi[i].fueltype + " ");
+                    sw.Write(taxi[i].fuelConsumption + " ");
+                    sw.Write(taxi[i].price + " ");
+                    sw.WriteLine(taxi[i].seatCount);
+                    sw.Close();
+                }
+                TaxAvto ta = new TaxAvto();
+                StreamReader sr = new StreamReader("C:\\Users\\Islam_Mamayeu@epam.com\\Documents\\Visual Studio 2015\\Projects\\" + nameofFile);
+                List<string> listTax = new List<string>();
+                while (!sr.EndOfStream)
+                {
+                    listTax.Add(sr.ReadLine());
+                }
+                for (int j = 0; j < listTax.Count; j++)
+                {
+                    string[] str;
+                    str = listTax[j].Split(' ');
+
+                    for (i = 0; i < str.Length - 1; i++)
+                    {
+
+                        ta.model = str[i++];
+                        ta.type = str[i++];
+                        ta.fueltype = str[i++];
+                        ta.fuelConsumption = double.Parse(str[i++]);
+                        ta.price = Int32.Parse(str[i++]);
+                        ta.seatCount = Int32.Parse(str[i++]);
+                        ListFromFile.Add(ta);
+                    }
+                }
+            }
+            return ListFromFile;
+        }
 
         public static void Price(List<TaxAvto> taxi)
         {
@@ -39,6 +125,7 @@ namespace TaxPark
         }
         public static void ShowList(List<TaxAvto> taxi)
         {
+
             for (int i = 0; i < taxi.Count; i++)
             {
                 Console.WriteLine(i + 1 + ":");

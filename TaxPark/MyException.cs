@@ -8,10 +8,13 @@ namespace TaxPark
 {
     class MyException : Exception
     {
-        public void listNotFoundException ()
+        public MyException(string message)
+        : base(message)
+        { }
+        public MyException()
         {
-            Console.WriteLine("List not found !!");
         }
+
 
     }
 }

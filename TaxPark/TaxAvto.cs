@@ -14,6 +14,10 @@ namespace TaxPark
         override public void Show()
         {
         }
+        public TaxAvto()
+        {
+
+        }
         public TaxAvto(string model,string type,string fueltype,double fuelConsumption,int price,int seatCount)
         {
             this.model = model;

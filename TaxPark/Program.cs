@@ -10,74 +10,71 @@ namespace TaxPark
     {
         static void Main(string[] args)
         {
-            
+
             int ch = 0;
             bool b = true;
-            bool isInt;
+            bool isInt = true;
 
             List<TaxAvto> taxi = Util.Add();
 
             while (b)
+            {
+                Console.WriteLine("1.Add");
+                Console.WriteLine("2.Print taxi list");
+                Console.WriteLine("3.Price of TaxPark");
+                Console.WriteLine("4.Print list sorted by FuelConsumption ");
+                Console.WriteLine("5.Search avto");
+                Console.WriteLine("6.Delete avto");
+                Console.WriteLine("7.Exit\n");
+
+                isInt = Int32.TryParse(Console.ReadLine(), out ch);
+                try
                 {
-                    Console.WriteLine("\n1.Print taxi list");
-                    Console.WriteLine("2.Price of TaxPark");
-                    Console.WriteLine("3.Print list sorted by FuelConsumption ");
-                    Console.WriteLine("4.Search avto");
-                    Console.WriteLine("5.Delete avto");
-                    Console.WriteLine("6.Exit\n");
-
-                    isInt = Int32.TryParse(Console.ReadLine(), out ch);
-
                     if (isInt)
                     {
 
                         switch (ch)
                         {
                             case 1:
-                                Util.ShowList(taxi);
+                               taxi = Util.ReadWriteFile(taxi);
                                 break;
                             case 2:
-                                Util.Price(taxi);
+                                Util.ShowList(taxi);
                                 break;
                             case 3:
-                                Util.ShowSortedListbyConsumption(taxi);
+                                Util.Price(taxi);
                                 break;
                             case 4:
-                                Util.SearchBy(taxi);
-                                break;                        
-                            
+                                Util.ShowSortedListbyConsumption(taxi);
+                                break;
                             case 5:
-                            try
-                            {
-                                taxi = Util.Delete(taxi); 
-                            }
-                            catch(MyException e)
-                            {
-                                e.listNotFoundException();
-                            }
-                           
-
-                            break;
+                                Util.SearchBy(taxi);
+                                break;
                             case 6:
-                            b = false;
-                            break;
-
-                        default:
+                                taxi = Util.Delete(taxi);
+                                break;
+                            case 7:
+                                b = false;
+                                break;
+                            default:
                                 Console.WriteLine("Incorrect choice");
                                 break;
                         }
 
                     }
+
                     else
                     {
-                        Console.WriteLine("Please try again!:");
+                        throw new MyException("Digits only!");
                     }
+                }catch(MyException ex)
+                {
+                    Console.WriteLine("Error:"+ex.Message);
                 }
             }
 
-
-
-            }
-
         }
+
+    }
+}
     
