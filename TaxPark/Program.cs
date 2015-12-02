@@ -14,18 +14,18 @@ namespace TaxPark
             int ch = 0;
             bool b = true;
             bool isInt = true;
-
-            List<TaxAvto> taxi = Util.Add();
+            List<TaxAvto> taxi = new List<TaxAvto>();
 
             while (b)
             {
-                Console.WriteLine("1.Add");
-                Console.WriteLine("2.Print taxi list");
-                Console.WriteLine("3.Price of TaxPark");
-                Console.WriteLine("4.Print list sorted by FuelConsumption ");
-                Console.WriteLine("5.Search avto");
-                Console.WriteLine("6.Delete avto");
-                Console.WriteLine("7.Exit\n");
+                Console.WriteLine("1.Read");
+                Console.WriteLine("2.Write");
+                Console.WriteLine("3.Print taxi list");
+                Console.WriteLine("4.Price of TaxPark");
+                Console.WriteLine("5.Print list sorted by FuelConsumption ");
+                Console.WriteLine("6.Search avto");
+                Console.WriteLine("7.Delete avto");
+                Console.WriteLine("8.Exit\n");
 
                 isInt = Int32.TryParse(Console.ReadLine(), out ch);
                 try
@@ -36,24 +36,37 @@ namespace TaxPark
                         switch (ch)
                         {
                             case 1:
-                               taxi = Util.ReadWriteFile(taxi);
+                                Console.WriteLine("PLease enter name of file:");
+                                string nameofFile = Console.ReadLine() + ".txt";
+
+                                taxi = Util.Read(nameofFile);//Read from file
                                 break;
                             case 2:
-                                Util.ShowList(taxi);
+                                    taxi = Util.Write(taxi);
                                 break;
                             case 3:
-                                Util.Price(taxi);
+                                if(taxi.Count==0)
+                                {
+                                    Console.WriteLine("PLease read file");
+                                }
+                                else
+                                { 
+                                Util.ShowList(taxi);
+                                }
                                 break;
                             case 4:
-                                Util.ShowSortedListbyConsumption(taxi);
+                                Util.Price(taxi);
                                 break;
                             case 5:
-                                Util.SearchBy(taxi);
+                                Util.ShowSortedListbyConsumption(taxi);
                                 break;
                             case 6:
-                                taxi = Util.Delete(taxi);
+                                Util.SearchBy(taxi);
                                 break;
                             case 7:
+                                taxi = Util.Delete(taxi);
+                                break;
+                            case 8:
                                 b = false;
                                 break;
                             default:

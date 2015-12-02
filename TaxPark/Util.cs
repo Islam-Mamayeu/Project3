@@ -12,12 +12,13 @@ namespace TaxPark
 
 
 
-        public static List<TaxAvto> ReadWriteFile(List<TaxAvto> taxi)
+        public static List<TaxAvto> Write(List<TaxAvto> taxi)
         {
-            TaxAvto objTaxAvto = new TaxAvto() ;
-            List<TaxAvto> ListFromFile = new List<TaxAvto>();
+            TaxAvto objTaxAvto = new TaxAvto() ;//object for writing
+
             Console.WriteLine("Enter name of file :");
             String nameofFile = Console.ReadLine()+".txt";
+
             int i = 0;
             if (nameofFile == ".txt")
             {
@@ -31,9 +32,6 @@ namespace TaxPark
                 if (file.Exists == false)
                 {
                     file.Create();
-                }
-                else
-                {
                     Console.WriteLine("File is created");
                 }
 
@@ -54,37 +52,48 @@ namespace TaxPark
 
                 Console.WriteLine("SeatCount: ");
                 objTaxAvto.seatCount = Int32.Parse(Console.ReadLine());
-                taxi.Add(objTaxAvto);
+
+                Read(nameofFile);
+
+                
                 StreamWriter sw;
 
-                for (i = 0; i < taxi.Count; i++)
-                {
-
-
                     sw = file.AppendText();
-                    sw.Write(taxi[i].model + " ");
-                    sw.Write(taxi[i].type + " ");
-                    sw.Write(taxi[i].fueltype + " ");
-                    sw.Write(taxi[i].fuelConsumption + " ");
-                    sw.Write(taxi[i].price + " ");
-                    sw.WriteLine(taxi[i].seatCount);
+                    sw.Write(objTaxAvto.model + " ");
+                    sw.Write(objTaxAvto.type + " ");
+                    sw.Write(objTaxAvto.fueltype + " ");
+                    sw.Write(objTaxAvto.fuelConsumption + " ");
+                    sw.Write(objTaxAvto.price + " ");
+                    sw.WriteLine(objTaxAvto.seatCount);
                     sw.Close();
-                }
-                TaxAvto ta = new TaxAvto();
+                taxi.Add(objTaxAvto);
+
+            }
+            return taxi;
+        }
+        public static List<TaxAvto> Read(string nameofFile)
+        {
+            List<TaxAvto> ListFromFile = new List<TaxAvto>();
+
+            try {
                 StreamReader sr = new StreamReader("C:\\Users\\Islam_Mamayeu@epam.com\\Documents\\Visual Studio 2015\\Projects\\" + nameofFile);
-                List<string> listTax = new List<string>();
+            
+        
+                List<string> listTax = new List<string>();//list of rows in file
+
+                int i = 0;
                 while (!sr.EndOfStream)
                 {
                     listTax.Add(sr.ReadLine());
                 }
                 for (int j = 0; j < listTax.Count; j++)
                 {
+                    TaxAvto ta = new TaxAvto();
                     string[] str;
                     str = listTax[j].Split(' ');
 
-                    for (i = 0; i < str.Length - 1; i++)
+                    for (i = 0; i < str.Length -1 ; i++)
                     {
-
                         ta.model = str[i++];
                         ta.type = str[i++];
                         ta.fueltype = str[i++];
@@ -93,11 +102,19 @@ namespace TaxPark
                         ta.seatCount = Int32.Parse(str[i++]);
                         ListFromFile.Add(ta);
                     }
-                }
-            }
-            return ListFromFile;
-        }
 
+                }
+                sr.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("File is not exsist!");
+
+            }
+            
+            return ListFromFile;
+
+        }
         public static void Price(List<TaxAvto> taxi)
         {
             double priceResult=0;
@@ -125,7 +142,6 @@ namespace TaxPark
         }
         public static void ShowList(List<TaxAvto> taxi)
         {
-
             for (int i = 0; i < taxi.Count; i++)
             {
                 Console.WriteLine(i + 1 + ":");
@@ -326,6 +342,7 @@ namespace TaxPark
                 Console.WriteLine("Only Digits!");
 
             }
+
             return taxi;
 
         }
